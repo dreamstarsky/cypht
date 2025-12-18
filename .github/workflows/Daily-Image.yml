@@ -1,12 +1,10 @@
 name: Build Daily Image
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
   build-and-push:
-    if: github.repository_owner == 'cypht-org'
     runs-on: ubuntu-latest
 
     steps:
@@ -34,9 +32,9 @@ jobs:
           file: ./docker/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: cypht/cypht:daily
-          cache-from: type=registry,ref=cypht/cypht:buildcache
-          cache-to: type=registry,ref=cypht/cypht:buildcache,mode=max
+          tags: starryskymeow/test:cypht
+          cache-from: type=registry,ref=starryskymeow/test:buildcache
+          cache-to: type=registry,ref=starryskymeow/test:buildcache,mode=max
 
       - name: Log out from Docker Hub
         run: docker logout
